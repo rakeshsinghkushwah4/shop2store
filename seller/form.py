@@ -19,10 +19,13 @@ class AddProductForm(forms.ModelForm):
 
 class searchForm(forms.Form):
     Status = (('Status','Status'),('Panding','Panding'),('Delivered','Delivered'))
-    product = Product.objects.all()
-    pro = (('Product','Prodcut'),)
-    for p in product:
-        pro= pro+((str(p),str(p)),)
+    try:
+    	product = Product.objects.all()
+    	pro = (('Product','Prodcut'),)
+    	for p in product:
+    	pro= pro+((str(p),str(p)),)
+    except:
+    		pass
     status = forms.ChoiceField(choices=Status,required=False,initial='None')
     products = forms.ChoiceField(choices = pro,required=False,initial='None')
 
