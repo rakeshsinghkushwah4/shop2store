@@ -69,7 +69,7 @@ def activate_account(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('store')
     else:
         return HttpResponse('Activation link is invalid!')
 
