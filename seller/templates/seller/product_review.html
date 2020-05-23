@@ -1,0 +1,28 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .profile-pic {
+        max-width: 50px;
+        max-height: 50px;
+        margin: 0 auto;
+        border-radius: 50%;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 style="margin-top: 10px;">Reviews</h1>
+        <hr>
+        {% for re in review %}
+        <div class="p-2" style="background-color:floralwhite;">
+        <img class="profile-pic" src="{{re.customer.profile_pic.url}}">
+        <strong style="margin-left:20px ;">{{re.customer.name}}</strong><br>
+        <p style="margin-left: 10%;">{{re.text}}</p>
+    </div>
+    <hr>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
