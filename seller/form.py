@@ -8,15 +8,12 @@ class AddProductForm(forms.ModelForm):
         model = Product
         fields = "__all__"
         exclude = ['slug','seller']
-
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control','placeholder':'Product Name'}),
             'price': forms.TextInput(attrs={'class':'form-control','placeholder':'Product Price'}),
             'category': forms.Select(attrs={"class":'form-control'}),
             'description': forms.Textarea(attrs={'class':'form-control','placeholder':'Product Description'}),
-            'image': forms.FileInput(attrs={'class':'form-control'}),          
-        }
-
+            }
 class searchForm(forms.Form):
     Status = (('Status','Status'),('Panding','Panding'),('Delivered','Delivered'))
     try:

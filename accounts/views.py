@@ -157,13 +157,10 @@ def profile(req):
     cartItem = order.get_cart_items
     try:
         user = req.user.myprofile 
-        print('user',user)
         form  = customerForm(instance=user)
-        print('rakesh')
         if req.method=='POST':
             form = customerForm(req.POST,req.FILES,instance=user)
             if form.is_valid:
-                print('form is valid')
                 form.save()
     except:
         pass

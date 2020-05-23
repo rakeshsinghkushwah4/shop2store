@@ -55,6 +55,7 @@ def productEdit(req,slug):
     edit = 'edit'
     product = Product.objects.get(slug= slug)
     form = AddProductForm(instance=product)
+    print('form',form)
     if req.method=="POST":
         form = AddProductForm(req.POST,req.FILES,instance=product)
         if form.is_valid():
