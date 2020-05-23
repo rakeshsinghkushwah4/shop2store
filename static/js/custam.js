@@ -69,7 +69,7 @@ function search() {
                     table += '<td>' + value.product__Category + '</td>';
                     table += '<td>' + value.cr_date + '</td>';
                     table += '<td>' + value.status + '</td>';
-                    table += '<td><a class="btn btn-sm btn-info" href="/accounts/update_order/' + value.id + '">Update</a></td>';
+                    table += '<td><a class="btn btn-sm btn-info" href="/seller/update_order/' + value.id + '">Update</a></td>';
                     table += '</tr>';
                 });
 

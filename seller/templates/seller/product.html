@@ -31,7 +31,7 @@
                     <td></td>
                 <td class="product">{{i.name}}</td>
                 <td class="product">{{i.Category}}</td>
-                <td class="product">{{i.price}}</td>
+                <td class="product">Rs. {{i.price}}</td>
                 <td><img src="{{i.image.url}}" style="width:100px;height:100px"></td>
                     <td class="product"><a class="btn btn-outline-success" href="{% url 'seller_product_detail' i.slug %}">Detail</a></td>
                     <td class="product"><a class="btn btn-outline-info" href="{% url 'edit_product' i.slug %}">Edit Product</a></td>
