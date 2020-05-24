@@ -36,7 +36,6 @@ $(document).ready(function () {
 // Ajax for Search
 
 function search() {
-    console.log('slkfjdfjs;dfslfkjslskd')
     var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
     var product_data, status_data;
     // always we define id first then action or other attributes
@@ -44,7 +43,6 @@ function search() {
     product_data = $('#id_products').val();
     status_data = $('#id_status').val();
     var urls = '{% url "sarch" %}';
-    console.log('urlsss', urls);
     $.ajax({
         type: "POST",
         url: url,
@@ -52,29 +50,36 @@ function search() {
         data: { 'products': product_data, 'status': status_data },
         success: function (data) {
             $('#product_d').remove();
-
-
             var table = '';
             // $.each(data,function(index,value){
             // console.log(data[index].product__name)
             // console.log(data[index].product__Category)
 
             // });
+            var cheack = "False"
             table = '<table class="table table-sm" id="product_d"><tr><th>Product</th><th>Category</th><th>Date Ordered</th><th>Status</th><th>Update</th></tr>'
             $.each(data, function (index, value1) {
                 var value2 = JSON.parse(value1);
-                $.each(value2, function (i, value) {
-                    table += '<tr>';
-                    table += '<td>' + value.product__name + '</td>';
-                    table += '<td>' + value.product__Category + '</td>';
-                    table += '<td>' + value.cr_date + '</td>';
-                    table += '<td>' + value.status + '</td>';
-                    table += '<td><a class="btn btn-sm btn-info" href="/seller/update_order/' + value.id + '">Update</a></td>';
-                    table += '</tr>';
-                });
-
-
+                console.log('vlaue2',value2.length)
+                if (value2.length>0){
+                    cheack = "True"
+                    console.log('true')
+                }
+                if (cheack == "True"){
+                    $.each(value2, function (i, value) {
+                        table += '<tr>';
+                        table += '<td>' + value.product__name + '</td>';
+                        table += '<td>' + value.product__Category + '</td>';
+                        table += '<td>' + GetFormattedDate(value.cr_date) + '</td>';
+                        table += '<td>' + value.status + '</td>';
+                        table += '<td><a class="btn btn-sm btn-info" href="/seller/update_order/' + value.id + '">Update</a></td>';
+                        table += '</tr>';
+                    });
+                }
             });
+            if (cheack == 'False'){
+                alert("Data is not Found ");
+            }
             table += '</table>';
             $('#search_p').append(table)
 
@@ -141,7 +146,6 @@ function create_post() {
             success: function (data) {
                 var simple = ' ';
                 var data = JSON.parse(data);
-                console.log(data)
                 $.each(data, function (index, value) {
                     simple += '<h2>' + value.fields.name + '</h2>'
                     simple += '<h5>' + value.fields.text + '</h5>'
@@ -162,6 +166,15 @@ function create_post() {
         })
 
 };
+
+// Convert the millisecond into date formate
+function GetFormattedDate(date) {
+    var dateset = new Date(date);
+    var month = dateset.getMonth() + 1;
+    var day = dateset.getDate();
+    var year = dateset.getFullYear();
+    return day + "/" + month + "/" + year;
+}
 // function json_html(data){
 //     var html_data = document.getElementById('customer')
 //     for(var i=0;i<data.length; i++){

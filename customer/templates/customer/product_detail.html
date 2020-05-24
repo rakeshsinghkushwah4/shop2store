@@ -26,7 +26,7 @@
                     Rs. {{product_detail.price}}</span></p>
             <p class="product-style">Product Category <span>-></span></span><span style="font-size:x-large;">
                     {{product_detail.Category}}</span></p>
-            <p class="product-style">Product Category <span>-></span></span><span style="font-size:x-large;">
+            <p class="product-style">Product description <span>-></span></span><span style="font-size:x-large;">
                     {{product_detail.description}}</span></p>
 
             <button data-product="{{product_detail.id}}" data-action="add" data-url="{% url 'update_item' %}"
@@ -37,7 +37,10 @@
         </div>
     </div>
     
-    <h1 style="margin: 50px;">Reviews</h1>
+    <div style="background-color: deepskyblue;">
+        <h1 style="margin: 50px; color:whitesmoke;">Reviews</h1>
+    </div>
+    
     <hr>
         {% for review in reviews %}
         <div class="p-2" style="background-color:beige;">

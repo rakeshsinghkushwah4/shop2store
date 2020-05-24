@@ -1,10 +1,13 @@
 {% extends 'accounts/base.html' %}
 {% load static %}
 {% block body %}
-<h1>Reviews</h1>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
+            <div style="background-color: darkorange;">
+                <h1 style="margin: 5px;font-family: 'Times New Roman'; color: white;">Your Product Review </h1>
+            </div>
             <div class="table">
                 <table>
                     <th>Product Name</th>
@@ -19,16 +22,19 @@
                     <tr>
                         <td>{{item.product.name}}</td>
                         <td>{{item.product.price}}</td>
-                        <td>{{item.cr_date}}</td>
+                        <td>{{item.cr_date | date:"d/m/y"}}</td>
                         {% if item.get_review %}
                         <td><button id="edit_button" class="btn btn-outline-info show_edit" data-action="get_data"
-                                data-product="{{item.product.id}}" data-url ="{% url 'edit_review' %}" data-id="{{item.product.id}}">Edit</button></td>
+                                data-product="{{item.product.id}}" data-url="{% url 'edit_review' %}"
+                                data-id="{{item.product.id}}">Edit</button></td>
 
                         <td><button id="delete_button" class="btn btn-outline-danger delete_review" data-action="delete"
-                                data-product="{{item.product.id}}" data-url="{% url 'edit_review' %}">Delete</button></td>
+                                data-product="{{item.product.id}}" data-url="{% url 'edit_review' %}">Delete</button>
+                        </td>
                         {% else %}
                         <td><button id="review_button" class="btn btn-outline-success show_review "
                                 data-product="{{item.product.name}}" data-id="{{item.product.id}}">Review</button></td>
+                        <td></td>
                         {% endif %}
                     </tr>
                     {% endfor %}
@@ -37,27 +43,29 @@
                 </table>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div id="review" style="display: none;" class="form-group">
-                <strong><span id=product_name> </span>Review</strong>
-                <input id="review_text" type="text" class="form-control">
-                <input type="hidden" id="orderitem_id" value="0">
-                <hr>
-                <center>
-                    <button id="send_review" data-url="{% url 'review' %}" 
-                        class="btn btn-outline-warning">Send</button>
-                </center>
-            </div>
+        <div class="col-lg-3 ">
+            <div style="margin-top: 50%;">
+                <div id="review" style="display: none;" class="form-group">
+                    <strong><span id=product_name> </span>Review</strong>
+                    <input id="review_text" type="text" class="form-control">
+                    <input type="hidden" id="orderitem_id" value="0">
+                    <hr>
+                    <center>
+                        <button id="send_review" data-url="{% url 'review' %}"
+                            class="btn btn-outline-warning">Send</button>
+                    </center>
+                </div>
 
-            <div id="edit" class="form-group" style="display: none;" >
-                <strong>Edit <span id=edit_product_name> </span>Review</strong>
-                <input id="edit_text" type="text" class="form-control">
-                <input type="hidden" id="review_id" value="0">
-                <hr>
-                <center>
-                    <button id="update_review" data-url="{% url 'edit_review' %}" data-action="update"
-                        class="btn btn-outline-warning">update</button>
-                </center>
+                <div id="edit" class="form-group" style="display: none;">
+                    <strong>Edit <span id=edit_product_name> </span>Review</strong>
+                    <input id="edit_text" type="text" class="form-control">
+                    <input type="hidden" id="review_id" value="0">
+                    <hr>
+                    <center>
+                        <button id="update_review" data-url="{% url 'edit_review' %}" data-action="update"
+                            class="btn btn-outline-warning">update</button>
+                    </center>
+                </div>
             </div>
         </div>
     </div>
@@ -68,7 +76,7 @@
             event.preventDefault();
             var id = this.dataset.id
             var product_name = this.dataset.product
-            console.log('sdfsfd',id)
+            console.log('sdfsfd', id)
             document.getElementById('review').setAttribute('style', 'visibility:visible');
             $('#edit').hide()
             $("#product_name").text(product_name + " ");
@@ -105,20 +113,20 @@
             var datas = this.dataset.action
             var url = this.dataset.url
             $('#review').hide()
-            console.log('id ', id, product_name,datas,url)
+            console.log('id ', id, product_name, datas, url)
             console.log('isdfsfsssssssssd ', id, product_name)
             $("#edit_product_name").text(product_name + " ");
             $('#review_id').val(id)
-                 $.ajax({
+            $.ajax({
                 type: "POST",
                 url: url,
                 headers: { "X-CSRFToken": csrftoken },
                 data: {
                     'product': product_name,
-                    'action':datas
+                    'action': datas
                 },
                 success: function (data) {
-                    $("#edit_product_name").text(data['product']+' ');
+                    $("#edit_product_name").text(data['product'] + ' ');
                     $("#edit").show()
                     $('#edit_text').val(data['review'])
                     $('#review_id').val(data['id'])
@@ -126,22 +134,22 @@
             });
         });
 
-        $('#update_review').on('click',function(event){
+        $('#update_review').on('click', function (event) {
             event.preventDefault();
             var url = this.dataset.url
             var action = this.dataset.action
             var text = $('#edit_text').val()
             var id = $('#review_id').val()
-            console.log('url ',url ,action,text ,id)
+            console.log('url ', url, action, text, id)
 
             $.ajax({
-                type:'POST',
+                type: 'POST',
                 url: url,
                 headers: { "X-CSRFToken": csrftoken },
                 data: {
                     'action': action,
-                    'text':text,
-                    'id':id
+                    'text': text,
+                    'id': id
                 },
                 success: function (data) {
                     console.log(data)
@@ -149,22 +157,22 @@
                     location.reload();
                 }
             });
-            
+
         });
 
         $('.delete_review').on('click', function (event) {
             event.preventDefault();
-            var url = this.dataset.url            
+            var url = this.dataset.url
             var product = this.dataset.product
             var action = this.dataset.action
-            console.log('sdfrdfsd',url,product,action)
+            console.log('sdfrdfsd', url, product, action)
             $.ajax({
-                type:'POST',
+                type: 'POST',
                 url: url,
                 headers: { "X-CSRFToken": csrftoken },
                 data: {
                     'action': action,
-                    'product':product,
+                    'product': product,
                 },
                 success: function (data) {
                     console.log(data)

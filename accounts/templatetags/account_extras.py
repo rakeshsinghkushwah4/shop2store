@@ -23,3 +23,5 @@ def update_variable(value):
     print('update_varialbvle',value)
     data = value
     return data
+
+    

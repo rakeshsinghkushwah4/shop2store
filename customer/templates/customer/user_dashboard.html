@@ -28,7 +28,7 @@
                     <td>{{o.cr_date | date:"d/m/y"}}</td>
                     <td>{{o.status}}</td>
                     <td>{{o.quantity}}</td>
-                    <td> <a class="btn btn-info" href="#">Product Details</a></td>
+                    <td> <a class="btn btn-info" href="{% url 'product_detail' o.product.slug %}">Product Details</a></td>
                     <td> <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal{{o.id}}">Cancel Order</a></td>
                 </tr>
                   <!-- The Modal -->

@@ -29,7 +29,6 @@
                                 </div>
                             </div>
                             </td>
-                            {{item.id}}
                             <td>{{item.get_total|floatformat:2}}</td>
                             <td><button data-url="{% url 'cancel_order' %}" data-id="{{item.id}}" class="btn btn-outline-primary delete-order">Cancel</button></td>
                         </tr>
