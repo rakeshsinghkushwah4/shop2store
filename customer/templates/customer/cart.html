@@ -20,7 +20,7 @@
                         <tr>
                             <td><img class="row-image" src="{{item.product.image.url}}" alt=""></td>
                             <td>{{item.product.name}}</td>
-                            <td>{{item.product.price|floatformat:2}}</td>
+                            <td>{{item.product.discount_price|floatformat:2}}</td>
                             <td class="center">
                                 <div class="quantity">
                                     <img data-product="{{item.product.id}}" data-action="add" data-url="{% url 'update_item' %}" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">

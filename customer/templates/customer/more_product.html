@@ -11,9 +11,9 @@
     </center>
     <div class="row">
         {% for pro in product %}
-        <div class="col-lg-3 mx-1" style="margin-bottom: 10px;">
+        <div class="col-lg-3 mx-3" style="margin-bottom: 10px;">
             <div class="card" style="width: 18rem;">
-                <img src="{{pro.image.url}}" alt="Card image cap" width="300px" height="200px">
+                <img src="{{pro.image.url}}" alt="Card image cap" width="-webkit-fill-available" height="200px" style="margin-top: 5px;">
                 <div class="card-body">
                     <h5 class="card-title">{{pro.name}}</h5>
                     <p class="card-text">Rs. {{pro.price}}</p>

@@ -1,6 +1,6 @@
 {% extends 'accounts/base.html' %} {% block body %}
 <style>
-    .product{
+    .product {
         padding-top: 50px !important;
         font-size: 20px;
     }
@@ -29,45 +29,56 @@
                 {% for i in product %}
                 <tr>
                     <td></td>
-                <td class="product">{{i.name}}</td>
-                <td class="product">{{i.Category}}</td>
-                <td class="product">Rs. {{i.price}}</td>
-                <td><img src="{{i.image.url}}" style="width:100px;height:100px"></td>
-                    <td class="product"><a class="btn btn-outline-success" href="{% url 'seller_product_detail' i.slug %}">Detail</a></td>
-                    <td class="product"><a class="btn btn-outline-info" href="{% url 'edit_product' i.slug %}">Edit Product</a></td>
+                    <td class="product">{{i.name}}</td>
+                    <td class="product">{{i.Category}}</td>
+                    {% if i.discount < 100 %}
+                    <td class="product"><del>Rs. {{i.price}}</del><p>Rs. {{i.discount_price}}</p>
+                    </td>
+                    {% else %}
+                    <td class="product">Rs. {{i.price}}</td>
+                    {% endif %}
+                    <td>
+                        <img src="{{i.image.url}}" style="width:100px;height:100px">
+                    </td>
+                    <td class="product"><a class="btn btn-outline-success"
+                            href="{% url 'seller_product_detail' i.slug %}">Detail</a></td>
+                    <td class="product"><a class="btn btn-outline-info" href="{% url 'edit_product' i.slug %}">Edit
+                            Product</a></td>
                     {% if i.product_status %}
                     <td class="product"> Activate </td>
                     {% else %}
                     <td class="product"> Deactivate </td>
                     {% endif %}
-                   <td class="product" ><a class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal{{i.id}}">Delete Product</a></td>
-                    <td class="product"> <a href="{% url 'seller_review' i.id %}" class="btn btn-outline-dark ">Review</a></td>
+                    <td class="product"><a class="btn btn-outline-danger" data-toggle="modal"
+                            data-target="#myModal{{i.id}}">Delete Product</a></td>
+                    <td class="product"> <a href="{% url 'seller_review' i.id %}"
+                            class="btn btn-outline-dark ">Review</a></td>
                 </tr>
-                  <!-- The Modal -->
-                     <div class="modal" id="myModal{{i.id}}">
-                        <div class="modal-dialog modal-dialog-centered">
-                             <div class="modal-content">
-                     <!-- Modal Header -->
-                         <div class="modal-header">
-                             <h5>You want Delete Product "{{i.name}}"</h5>
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                         </div>
-                      <!-- Modal body-->
-                         <div class="modal-body">
-                              <h4>{{i.description}}</h4>
-                         </div>
+                <!-- The Modal -->
+                <div class="modal" id="myModal{{i.id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h5>You want Delete Product "{{i.name}}"</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body-->
+                            <div class="modal-body">
+                                <h4>{{i.description}}</h4>
+                            </div>
 
-                      <!-- Modal footer -->
-                     <div class="modal-footer">
-                          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                          <form action = "{% url 'cancel_product' i.id %}" method="GET">
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                <form action="{% url 'cancel_product' i.id %}" method="GET">
 
-                         <input class="btn btn-md btn-danger" type="submit" name=" Confirm" value="Ok">
-                          </form>
-                     </div>
-                             </div>
+                                    <input class="btn btn-md btn-danger" type="submit" name=" Confirm" value="Ok">
+                                </form>
+                            </div>
                         </div>
-                     </div>
+                    </div>
+                </div>
                 {% endfor %}
             </table>
         </div>

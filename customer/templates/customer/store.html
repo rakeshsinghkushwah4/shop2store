@@ -24,18 +24,32 @@
 <!-- {% include 'accounts/navbar.html' %}  -->
 {% for t,value in product.items %}
 <div style="padding-top: 5px;padding-bottom: 5px; margin-bottom: 10px;">
-    <a href="{% url 'more_product' t.id %}"><h3 style="margin: 10px; display:inline-block;"> {{t}}</h3> </a>
+    <a href="{% url 'more_product' t.id %}">
+        <h3 style="margin: 10px; display:inline-block;"> {{t}}</h3>
+    </a>
     <hr>
 </div>
+
 <div style="margin-left:2% ;margin-right:2% ;">
     <div class="owl-carousel owl-theme">
         {% for pro in value %}
         <div class="col-lg-3 mx-1" style="width: 100%; height: 450px;">
             <div class="card" style="width: 18rem;">
-                <img src="{{pro.image.url}}" alt="Card image cap" width="300px" height="200px">
+                <img src="{{pro.image.url}}" alt="Card image cap" width="300px" height="200px" style="margin-top: 5px;">
+                {% if pro.discount < 100 %}
+                <div style="position: absolute;top:5px;left: 10px;background-color:yellow;border-radius: 50%;">
+                    <p style="margin-top: 8px;padding:2px;"> {{pro.discount | floatformat:1}}% </p>
+                </div>
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{pro.name}}</h5>
-                    <p class="card-text">Rs. {{pro.price}}</p>
+                    {% if pro.discount < 100 %}
+                    <p><del>Rs. {{pro.price}}</del></p><p style="font-weight: bold;">Rs. {{pro.discount_price}}</p>
+                    {% else %}
+                    <p>Rs. {{pro.price}}</p>
+                    <br>
+                    {% endif %}
+                    <!-- <p class="card-text">Rs. {{pro.price}}</p> -->
                     <button data-product="{{pro.id}}" data-action="add" data-url="{% url 'update_item' %}"
                         class="btn btn-outline-primary add-btn update-cart ">Add to Cart</button>
                     <a href="{% url 'product_detail' pro.slug %}" class="btn btn-outline-success"
@@ -46,25 +60,43 @@
         {% endfor %}
     </div>
 </div>
+<!-- <div class="btns">
+    <div class="customNextBtn">Next slide</div>
+    <div class="customPreviousBtn">Previous slide</div>
+  </div> -->
 {% endfor %}
 <script>
-    $('.owl-carousel').owlCarousel({
-        loop: true,
-        autoplay: true,
-        dots: false,
-        autoplayTimeout: 2000,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 4
+    $(document).ready(function () {
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: true,
+            autoplay: true,
+            dots: false,
+            nav: false,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
             }
-        }
+
+        });
+        // Custom Button
+        $('.customNextBtn').click(function () {
+            console.log('next')
+            owl.trigger('next.owl.carousel');
+        });
+        $('.customPreviousBtn').click(function () {
+            console.log('prev')
+            owl.trigger('prev.owl.carousel');
+        });
     });
 </script>
 {% endblock %}

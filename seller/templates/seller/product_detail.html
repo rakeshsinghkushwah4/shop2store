@@ -7,11 +7,19 @@
 <div class="col-lg-6">
     <div class="mx-5">
         <img src="{{product.image.url}}" width="100%" height="500px" >
+        <div style="position: absolute;top:5px;left: 50px;background-color:yellow;border-radius: 50%;">
+            <p style="margin-top: 8px;padding:10px;font-size: 20px;"> {{product.discount |floatformat:1}}% </p>
+        </div>
     </div>
 </div>
 <div class="col-lg-6 my-5">   
     <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Name:</span><span style="font-size:x-large;">{{product.name}}</span></p>
-    <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span style="font-size:x-large;">Rs. {{product.price}}</span></p>
+    {% if product.discount < 100 %}
+    <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span><del>Rs. {{product.price}}</del></span><span style="margin-left: 10px;"> {{product.discount_price}}</span>
+    {% else %}
+        <p>Rs. {{i.price}}</p>
+    {% endif %}
+    <!-- <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span style="font-size:x-large;">Rs. {{product.price}}</span></p> -->
     <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Category:</span><span style="font-size:x-large;">{{product.Category}}</span></p>
     <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Tag:</span><span style="font-size:x-large;">{{product.tag.name}}</span></p>
     <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Description:</span></p>

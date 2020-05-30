@@ -15,6 +15,7 @@ class Product(models.Model):
     seller = models.ForeignKey(to=MyProfile,on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     price = models.FloatField()
+    discount_price = models.FloatField(default=0)
     Category = models.CharField(max_length=100,choices = Category)
     description = models.TextField()
     image = models.ImageField(upload_to='product/')
@@ -25,6 +26,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def discount(self):
+        price = self.price
+        sell_p =self.discount_price
+        main_p = price - sell_p
+        discount_per = (main_p*100)/price
+        return discount_per
 
     def save(self,*args, **kwargs):
         if not self.slug:
