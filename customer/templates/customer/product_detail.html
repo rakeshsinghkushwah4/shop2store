@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-md-6 col-lg-6 col-xl-6 mx-auto">
             <img src="{{product_detail.image.url}}" style="width: 100%; height: 500px;" alt="Product Image">
             {% if product_detail.discount < 100 %}
             <div style="position: absolute;top:5px;left: 50px;background-color:yellow;border-radius: 50%;">
@@ -20,12 +20,13 @@
         </div>
         {% endif %}
     </div>
-    <div class="col-lg-6">
+    <div class="col-md-6 col-lg-6 col-xl-6 mx-auto">
         <br>
         <p class="product-style">Name <span>-></span><span style="font-size:x-large;">
                     {{product_detail.name}}</span></p>
-        {% if product_detail.discount < 100 %} <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span><del>Rs. {{product_detail.price}}</del></span><span style="margin-left: 10px;"> {{product_detail.discount_price}}</span> {% else
-            %}
+        {% if product_detail.discount < 100 %}
+        <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span><del>Rs. {{product_detail.price}}</del></span><span style="margin-left: 10px;"> {{product_detail.discount_price}}</span>
+            {% else %}
             <p>Rs. {{product_detail.price}}</p>
             {% endif %}
             <p class="product-style">Product Category <span>-></span></span><span style="font-size:x-large;">

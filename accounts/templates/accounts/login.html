@@ -9,11 +9,11 @@
     <form method="POST" enctype="multipart/form-data" action="{% url 'login' %}">
         {% csrf_token %}
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
                 <strong>Username</strong> {{form.username}}
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
                 <strong>Password</strong> {{form.password}}
             </div>
         </div>

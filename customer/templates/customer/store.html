@@ -1,6 +1,4 @@
-{% extends 'accounts/base.html' %}
-{% load static %}
-{% block css %}
+{% extends 'accounts/base.html' %} {% load static %} {% block css %}
 <!-- <style>
     .col-md-3 {
         display: inline-block;
@@ -17,9 +15,7 @@
         padding-right: 0px;
     }
 </style> -->
-{% endblock %}
-{% block body %}
-{% load account_extras %}
+{% endblock %} {% block body %} {% load account_extras %}
 
 <!-- {% include 'accounts/navbar.html' %}  -->
 {% for t,value in product.items %}
@@ -33,32 +29,28 @@
 <div style="margin-left:2% ;margin-right:2% ;">
     <div class="owl-carousel owl-theme">
         {% for pro in value %}
-        <div class="col-lg-3 mx-1" style="width: 100%; height: 450px;">
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mx-1" style="width: 100%; height: 450px;">
             <div class="card" style="width: 18rem;">
                 <img src="{{pro.image.url}}" alt="Card image cap" width="300px" height="200px" style="margin-top: 5px;">
-                {% if pro.discount < 100 %}
-                <div style="position: absolute;top:5px;left: 10px;background-color:yellow;border-radius: 50%;">
+                {% if pro.discount < 100 %} <div style="position: absolute;top:5px;left: 10px;background-color:yellow;border-radius: 50%;">
                     <p style="margin-top: 8px;padding:2px;"> {{pro.discount | floatformat:1}}% </p>
-                </div>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{pro.name}}</h5>
-                    {% if pro.discount < 100 %}
-                    <p><del>Rs. {{pro.price}}</del></p><p style="font-weight: bold;">Rs. {{pro.discount_price}}</p>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{pro.name}}</h5>
+                {% if pro.discount < 100 %} <p><del>Rs. {{pro.price}}</del></p>
+                    <p style="font-weight: bold;">Rs. {{pro.discount_price}}</p>
                     {% else %}
                     <p>Rs. {{pro.price}}</p>
-                    <br>
-                    {% endif %}
+                    <br> {% endif %}
                     <!-- <p class="card-text">Rs. {{pro.price}}</p> -->
-                    <button data-product="{{pro.id}}" data-action="add" data-url="{% url 'update_item' %}"
-                        class="btn btn-outline-primary add-btn update-cart ">Add to Cart</button>
-                    <a href="{% url 'product_detail' pro.slug %}" class="btn btn-outline-success"
-                        style="display: inline-block;">View</a>
-                </div>
+                    <button data-product="{{pro.id}}" data-action="add" data-url="{% url 'update_item' %}" class="btn btn-outline-primary add-btn update-cart ">Add to Cart</button>
+                    <a href="{% url 'product_detail' pro.slug %}" class="btn btn-outline-success" style="display: inline-block;">View</a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 </div>
 <!-- <div class="btns">
     <div class="customNextBtn">Next slide</div>
@@ -66,7 +58,7 @@
   </div> -->
 {% endfor %}
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var owl = $('.owl-carousel');
         owl.owlCarousel({
             loop: true,
@@ -89,11 +81,11 @@
 
         });
         // Custom Button
-        $('.customNextBtn').click(function () {
+        $('.customNextBtn').click(function() {
             console.log('next')
             owl.trigger('next.owl.carousel');
         });
-        $('.customPreviousBtn').click(function () {
+        $('.customPreviousBtn').click(function() {
             console.log('prev')
             owl.trigger('prev.owl.carousel');
         });
