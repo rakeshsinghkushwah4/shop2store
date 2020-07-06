@@ -13,19 +13,18 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <img src="{{product_detail.image.url}}" style="width: 100%; height: 500px;" alt="Product Image"> {% if product_detail.discount
-            < 100 %} <div style="position: absolute;top:5px;left: 50px;background-color:yellow;border-radius: 50%;">
+            <img src="{{product_detail.image.url}}" style="width: 100%; height: 500px;" alt="Product Image">
+            {% if product_detail.discount < 100 %}
+            <div style="position: absolute;top:5px;left: 50px;background-color:yellow;border-radius: 50%;">
                 <p style="margin-top: 8px;padding:10px;font-size: 20px;"> {{product_detail.discount |floatformat:1}}% </p>
         </div>
         {% endif %}
-        <h1>dfsd{{post.name}}</h1>
     </div>
     <div class="col-lg-6">
         <br>
         <p class="product-style">Name <span>-></span><span style="font-size:x-large;">
                     {{product_detail.name}}</span></p>
-        {% if product_detail.discount
-        < 100 %} <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span><del>Rs. {{product_detail.price}}</del></span><span style="margin-left: 10px;"> {{product_detail.discount_price}}</span> {% else
+        {% if product_detail.discount < 100 %} <p style="font-size:large;"><span style="font-size: larger;margin-right: 50px;font-style: italic;font-weight: bold;">Product Price:</span><span><del>Rs. {{product_detail.price}}</del></span><span style="margin-left: 10px;"> {{product_detail.discount_price}}</span> {% else
             %}
             <p>Rs. {{product_detail.price}}</p>
             {% endif %}
@@ -33,11 +32,7 @@
                     {{product_detail.Category}}</span></p>
             <p class="product-style">Product description <span>-></span></span><span style="font-size:x-large;">
                     {{product_detail.description}}</span></p>
-
             <button data-product="{{product_detail.id}}" data-action="add" data-url="{% url 'update_item' %}" class="btn btn-outline-primary add-btn update-cart ">Add to Cart</button>
-
-
-
     </div>
 </div>
 <div style="background-color: deepskyblue;">
@@ -51,36 +46,5 @@
     <p style="margin-left: 10%;">{{review.text}}</p>
 </div>
 <hr> {% endfor %}
-
 </div>
-<h3>Rakesh singh kushwah </h3>
-{% for co in Product.comment_set.all %}
-<h2>Rakesh singh {{co}}</h2>
-{% endfor %}
-<!-- add comments -->
-<h2>Add a new comment</h2>
-<form action="." method="post">
-    {{ comment_form.as_p }} {% csrf_token %}
-    <button type="submit">Add comment</button>
-</form>
-
-<!-- Comment with nested comments -->
-{% for comment in comments %}
-<div class="comment" style="background-color: powderblue">
-    <p class="info">{{ comment.name }} | {{ comment.created }}</p>
-    {{ comment.body|linebreaks }} {% for replay in comment.replies.all %}
-    <p class="info">{{ replay.name }} | {{ replay.created }}</p>
-    <li>{{ replay.body }}</li>
-    {% endfor %}
-
-    <h5>Replay</h5>
-    <form action="." method="POST">
-        {{ comment_form }} {% csrf_token %}
-        <!-- Hidden input for parent comment.id -->
-        <input type="hidden" name="parent_id" value="{{ comment.id }}">
-        <input class="btn btn-primary" type="submit" value="Replay">
-    </form>
-</div>
-{% empty %}
-<h4>There are no comments yet.</h4>
-{% endfor %} {% endblock %}
+{% endblock %}
