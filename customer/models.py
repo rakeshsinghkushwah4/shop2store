@@ -50,8 +50,11 @@ class OrderItem(models.Model):
     cr_date = models.DateTimeField(auto_now_add=True)
 
     @property
-    def get_total(self):    
-        total = self.product.discount_price*self.quantity
+    def get_total(self):  
+        if self.product.discount_price>0:
+            total = self.product.discount_price*self.quantity
+        else:
+            total = self.product.price*self.quantity
         return total   
 
     @property
