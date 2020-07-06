@@ -1,5 +1,5 @@
 from django import forms
-from customer.models import ShippingAddress
+from customer.models import ShippingAddress,Comment
 
 class ShippingForm(forms.ModelForm):
     """Form definition for MODELNAME."""
@@ -15,3 +15,8 @@ class ShippingForm(forms.ModelForm):
             'zipcode': forms.TextInput(attrs={'class':'form-control','placeholder':'Zipcode....'}),
 
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'body')

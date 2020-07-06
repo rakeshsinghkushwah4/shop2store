@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from seller.models import Product,Tag
-from customer.models import Orders, OrderItem, Review
+from customer.models import Orders, OrderItem, Review,Comment
 from accounts.models import MyProfile
 from django.http import JsonResponse
 import json
-from customer.form import ShippingForm
+from customer.form import ShippingForm,CommentForm
 import datetime
 from django.contrib.auth.decorators import login_required
 from accounts.decoratoer import allowed_user
@@ -35,6 +35,7 @@ def home(req):
 
 
 def store(req):
+    # print('rakesh login',req.user.myprofile)
     tag = Tag.objects.all()
     product = {}
     for i in tag:
@@ -203,3 +204,46 @@ def Edit_review(req):
         
         data = {'product':product,'review':review,'id':id}
         return JsonResponse(data,safe=False)
+################################################################################################################
+def post_detail(request, post):
+    # get post object
+    # product_detail = Product.objects.get(slug = slug)
+    post = get_object_or_404(Product, slug=post)
+    # list of active parent comments
+    print('product comment',Product.comment_set.all)
+    comments = post.comments.filter(active=True, parent__isnull=True)
+    if request.method == 'POST':
+        # comment has been added
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            parent_obj = None
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
+            # if parent_id has been submitted get parent_obj id
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                # if parent object exist
+                if parent_obj:
+                    # create replay comment object
+                    replay_comment = comment_form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    replay_comment.parent = parent_obj
+            # normal comment
+            # create comment object but do not save to database
+            new_comment = comment_form.save(commit=False)
+            # assign ship to the comment
+            new_comment.post = post
+            # save
+            new_comment.save()
+            # return redirect('product_detail')
+    else:
+        comment_form = CommentForm()
+    return render(request,
+                  'customer/product_detail.html',
+                  {'post': post,
+                   'comments': comments,
+                   'comment_form': comment_form})

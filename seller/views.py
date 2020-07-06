@@ -105,7 +105,7 @@ def search(req,pk):
             product = form.cleaned_data['products'] 
             print(status,product)
             for o in order:
-                print('orde',o.orderitem_set.all())
+                # print('orde',o. .all())
                 print('roder',o.orderitem_set.filter(product__name__icontains=product))
                 if status or product:
                     if status !='Status' and product !='Product':

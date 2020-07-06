@@ -30,5 +30,6 @@ urlpatterns = [
   path('shipping/',views.Shipping,name='shipping'),
   path('review/',views.Reviews,name='review'),
   path('edit_review/',views.Edit_review,name='edit_review'),
+  path('comment/<slug:post>',views.post_detail,name='comment'),
   path('',RedirectView.as_view(url='dashboard')),
 ]

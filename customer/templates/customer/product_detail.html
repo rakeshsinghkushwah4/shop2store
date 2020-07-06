@@ -22,7 +22,7 @@
                 <p style="margin-top: 8px;padding:10px;font-size: 20px;"> {{product_detail.discount |floatformat:1}}% </p>
             </div>
             {% endif %}
-           
+           <h1>dfsd{{post.name}}</h1>
         </div>
         <div class="col-lg-6">
             <br>
@@ -45,7 +45,6 @@
 
         </div>
     </div>
-    
     <div style="background-color: deepskyblue;">
         <h1 style="margin: 50px; color:whitesmoke;">Reviews</h1>
     </div>
@@ -61,5 +60,40 @@
         {% endfor %}
 
 </div>
+<h3>Rakesh singh kushwah </h3>
+{% for co in Product.comment_set.all %}
+<h2>Rakesh singh {{co}}</h2>
+{% endfor %}
+<!-- add comments -->
+<h2>Add a new comment</h2>
+<form action="." method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Add comment</button>
+</form>
+
+<!-- Comment with nested comments -->
+{% for comment in comments %}
+    <div class="comment" style="background-color: powderblue">
+        <p class="info">{{ comment.name }} | {{ comment.created }}</p>
+            {{ comment.body|linebreaks }}
+
+        {% for replay in comment.replies.all %}
+            <p class="info">{{ replay.name }} | {{ replay.created }}</p>
+            <li>{{ replay.body }}</li>
+        {% endfor %}
+
+        <h5>Replay</h5>
+        <form action="." method="POST">
+            {{ comment_form }}
+            {% csrf_token %}
+            <!-- Hidden input for parent comment.id -->
+            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+            <input class="btn btn-primary" type="submit" value="Replay">
+        </form>
+    </div>
+{% empty %}
+<h4>There are no comments yet.</h4>
+{% endfor %}
 
 {% endblock %}
