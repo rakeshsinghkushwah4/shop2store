@@ -96,16 +96,13 @@
                     <!-- <h6 class="text-uppercase font-weight-bold">Products</h6> -->
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <a href="#!" class="text-white">Store</a>
+                        <a href="{% url 'store' %}" class="text-white">Store</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-white">Deshboard</a>
+                        <a href="{% url 'review' %}" class="text-white">Review</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-white">Review</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-white">Profile</a>
+                        <a href="{% url 'accounts_settings' %}" class="text-white">Profile</a>
                     </p>
 
                 </div>
@@ -121,13 +118,13 @@
                         <a href="#!">Your Account</a>
                     </p> -->
                     <p>
-                        <a href="#!" class="text-white">Login</a>
+                        <a href="{% url 'login'%}" class="text-white">Login</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-white">Register</a>
+                        <a href="{% url 'register'%}" class="text-white">Register</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-white">Logout</a>
+                        <a href="{% url 'logout'%}" class="text-white">Logout</a>
                     </p>
 
                 </div>
