@@ -6,7 +6,7 @@
     <form method="POST" enctype="multipart/form-data" action="{% url 'register' %}">
         {% csrf_token%}
         <div class="row">
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto ">
                 <strong>Username</strong>
                 <br> {{form.username}} {% if form.username.errors %} {% for error in form.username.errors %}
                 <strong class="text-danger" style="font-size: 12px;">{{error}}</strong><br> {% endfor %} {% endif %}
@@ -14,7 +14,7 @@
                 <br>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Passwrod</strong>
                 <br> {{form.password}} {% if form.errors %} {%for error in form.non_field_errors %}
                 <strong class="text-danger" style="font-size: 12px;">{{error}}</strong><br> {%endfor%} {%endif%}
@@ -22,13 +22,13 @@
 
                 <br>
             </div>
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Confirm Passwrod</strong>
                 <br> {{form.confirm_password}}
                 <br>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Name</strong>
                 <br> {{form.name}} {% if form.name.errors %} {% for error in form.name.errors %}
                 <strong class="text-danger" style="font-size: 12px;">{{error}}</strong><br> {% endfor %} {% endif %}
@@ -37,25 +37,25 @@
 
 
             </div>
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Gender</strong>
                 <br> {{form.gender}}
                 <br>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Phone</strong>
                 <br> {{form.phone}} {% if form.phone.errors %} {% for error in form.phone.errors %}
                 <strong class="text-danger" style="font-size: 12px;">{{error}}</strong><br> {% endfor %} {% endif %}
                 <br>
             </div>
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Register Type</strong>
                 <br> {{form.register_type}}
                 <br>
             </div>
 
-            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto">
+            <div class="form-group col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 ">
                 <strong>Profile Picture</strong>
                 <br> {{form.profile_pic}}
                 <br>
