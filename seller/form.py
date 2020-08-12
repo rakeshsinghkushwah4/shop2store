@@ -14,6 +14,7 @@ class AddProductForm(forms.ModelForm):
             'discount_price': forms.TextInput(attrs={'class':'form-control','placeholder':'Product Discount Price'}),
             'category': forms.Select(attrs={"class":'form-control'}),
             'description': forms.Textarea(attrs={'class':'form-control','placeholder':'Product Description'}),
+
             }
 class searchForm(forms.Form):
     Status = (('Status','Status'),('Panding','Panding'),('Delivered','Delivered'))

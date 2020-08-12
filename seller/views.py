@@ -5,6 +5,7 @@ from seller.form import AddProductForm,searchForm
 from customer.models import ShippingAddress
 from accounts.models import MyProfile
 from seller.form import Product,orderForm
+from seller.models import Tag
 from customer.models import OrderItem,Orders,Review
 from django.db.models import Q
 import json
@@ -55,7 +56,7 @@ def productEdit(req,slug):
     edit = 'edit'
     product = Product.objects.get(slug= slug)
     form = AddProductForm(instance=product)
-    print('form',form)
+    print('Edit form $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$',form)
     if req.method=="POST":
         form = AddProductForm(req.POST,req.FILES,instance=product)
         if form.is_valid():
@@ -68,7 +69,7 @@ def productEdit(req,slug):
 @allowed_user(['seller','admin'])
 def addProduct(req):
     form = AddProductForm()
-     # here extra is tall how many form you get 5 or 10 or so many
+    # here extra is tall how many form you get 5 or 10 or so many
     # form = orderForm(initial = {"customer":customer})
     # formset = AddProductForm(queryset=Order.objects.none()
     if req.method=="POST":
@@ -78,7 +79,16 @@ def addProduct(req):
             # Here we are not saving this form but form is take all field 
             pro = form.save(commit=False)
             pro.seller = req.user.myprofile
-            pro.save()    
+            pro.save()
+
+            selected_categories = form.cleaned_data.get('tag')  # returns list of all selected categories e.g. ['Sports','Adventure']
+            # Now saving the ManyToManyField, can only work after saving the form
+            print('434334434343343434343434343432423423424234243',selected_categories)
+            for title in selected_categories:
+                print('sdfa;lksfsj;ldfjl;kdsf;kdsaklj;fdfad;k;kds',title)
+                category_obj = Tag.objects.get(name=title)  # get object by title i.e I declared unique for title under Category model
+                pro.tag.add(category_obj)  # now add each category object to the saved form object
+
             return redirect('/')
         else:
             print(form.errors)
